@@ -113,7 +113,7 @@ view = {
 
                 // console.log(link);
 
-                $("#results").append("<div> <h2>"+title+"</h2>" + "<p>" +info +"</p>" + '<a href="' + link +'" target="_blank">Learn More</a></p></div>');
+                $("#results").append('<a href="' + link +'" target="_blank"><div class="resultDiv col-xs-12"> <h2>'+title+"</h2>" + "<p>" +info +"</p>" + '</p></div></a>');
             }
         });
     }
@@ -127,3 +127,5 @@ view = {
 controller.init();
 
 
+//to do
+//if undefined, don't append the div; for example, searching "boston celtics" returns 9 good results, 1 undefined result
