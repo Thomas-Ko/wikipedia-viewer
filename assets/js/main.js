@@ -91,6 +91,8 @@ view = {
     buttonClick: function(){
         $("button").on("click",function(){
             //removes any previous results from display
+            
+
             document.getElementById("results").innerHTML = "";
 
             //takes value of input box
@@ -112,10 +114,10 @@ view = {
                 var link =data[i].link;
                 
                 if(i===0 && title===undefined){
-                    $("#results").append("<h2>No results found</h2><p>Try again, or do a random search.</p>");
+                    $("#results").append("<h2>No results found</h2><p>Try again, or do a random search.</p>").hide().fadeIn(200);
                 }
                 else if (title!==undefined){
-                    $("#results").append('<a href="' + link +'" target="_blank"><div class="resultDiv col-xs-12"> <h2>'+title+"</h2>" + "<p>" +info +"</p>" + '</p></div></a>');
+                    $("#results").append('<a href="' + link +'" target="_blank"><div class="resultDiv col-xs-12"> <h2>'+title+"</h2>" + "<p>" +info +"</p>" + '</p></div></a>').hide().fadeIn(200);
                 } 
 
 
