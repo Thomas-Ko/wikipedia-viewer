@@ -53,11 +53,22 @@ main {
 }
 
 h2 {
-		/*font-family: 'Roboto Slab', serif;*/
-		border-bottom: 1px solid #eee;
-		font-size:25px;
-		font-weight:500;
+	font-family: 'Roboto Slab', serif;
+	margin-bottom:20px;
+	color: #8c8c8c;
+	/*opacity:0.8;*/
+	font-weight:300;
+}
 
+.search-term {
+	font-weight:400;
+}
+
+h3 {
+	/*font-family: 'Roboto Slab', serif;*/
+	border-bottom: 1px solid #eee;
+	font-size:25px;
+	font-weight:500;
 }
 
 .resultDiv {
@@ -110,7 +121,7 @@ a, a:hover, a:active, a:visited, a:focus {
 	}
 }
 
-@media screen and (max-width: 400px) {
+@media screen and (max-width: 600px) {
 	h1 {
 		font-size:38px;
 	}
@@ -118,5 +129,15 @@ a, a:hover, a:active, a:visited, a:focus {
 	.fa-wikipedia-w {
 		font-size:64px;
 		margin-right:-8.5px;
+	}
+
+	h2 {
+		font-size:16px;
+	}
+
+	.search-term {
+		display:block;
+		font-size:25px;
+		margin-top:8px;
 	}
 }

@@ -2,25 +2,18 @@
     MODEL
 =========================*/
 var model = {
-    
+    //this will be replaced with the search term from the input box
+    searchTerm : null,
    /*  results will be filled in by the controller.setSearchResults function when it is invoked by a successful API call.
     It will contain 10 objects, each with properties title, info, and link.*/
     results : [],
 
-
-    //this object constructor will be used in the controller.setSearchResults function
+    //this object constructor is used in the controller.setSearchResults function
     ResultObject : function (title, info, link) {
         this.title = title;
         this.info = info;
         this.link = link;
     }
-
-
-
-
-
-        
-
     
 };
 
@@ -58,6 +51,7 @@ controller = {
     },
 
     setSearchResults: function(data){
+
         model.results=[];
         for (i=0; i<10; i++){
             var arr=[];
@@ -68,11 +62,16 @@ controller = {
             var newObj = new model.ResultObject(arr[0],arr[1],arr[2]);
             model.results.push(newObj);
 
+            model.searchTerm=data[0];
+
         }
     },
 
     getSearchResults: function(){
         return model.results;
+    },
+    getSearchTerm: function(){
+        return model.searchTerm;
     }
 };
 
@@ -123,18 +122,22 @@ view = {
     renderSearchResults: function(){
         $( document ).ajaxStop(function() {
             var data= controller.getSearchResults();
+            var searchTerm = controller.getSearchTerm();
             console.log(data);
+
+            if(data[0] && data[0].title===undefined){
+                    $("#results").append("<h2>No results found</h2><p>Try again or <a class='link' href='https://en.wikipedia.org/wiki/Special:Random' target='_blank'>click here for a random article</a>.</p>").hide().fadeIn(200);
+            } else {
+                $('#results').append('<h2>Search Results for:<span class="search-term"> ' + searchTerm + '</span></h2>');
+            }
 
             for (i=0; i<data.length; i++){
                 var title=data[i].title;
                 var info = data[i].info;
                 var link =data[i].link;
                 
-                if(i===0 && title===undefined){
-                    $("#results").append("<h2>No results found</h2><p>Try again or <a class='link' href='https://en.wikipedia.org/wiki/Special:Random' target='_blank'>click here for a random article</a>.</p>").hide().fadeIn(200);
-                }
-                else if (title!==undefined){
-                    $("#results").append('<a href="' + link +'" target="_blank"><div class="resultDiv col-xs-12"> <h2>'+title+"</h2>" + "<p>" +info +"</p>" + '</p></div></a>').hide().fadeIn(200);
+                if (title!==undefined){
+                    $("#results").append('<a href="' + link +'" target="_blank"><div class="resultDiv col-xs-12"> <h3>'+title+"</h3>" + "<p>" +info +"</p>" + '</p></div></a>').hide().fadeIn(200);
                 }         
             }
         });
