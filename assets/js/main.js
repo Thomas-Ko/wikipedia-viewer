@@ -85,23 +85,39 @@ view = {
 
     init : function(){
         view.searchButtonClick();
+        view.pressEnter();
         view.renderSearchResults();
-        view.randomButtonClick();
     },
 
     searchButtonClick: function(){
-        $("#searchButton").on("click",function(){
-            //removes any previous results from display
-            
+        $("#searchButton").on("click",view.search);
+    },
 
-            document.getElementById("results").innerHTML = "";
-
-            //takes value of input box
-            inputText = $("input").val();
-
-            //calls wiki API with value from above
-            controller.getWikiInfo(inputText);
+    pressEnter: function(){
+        $(document).keypress(function(e) {
+        
+        //if the input is in focus and the button pressed is enter
+        if ($("input").is( ":focus" ) && e.which == 13) {
+                view.search();
+            }
         });
+
+        // if ($(this).is( ":focus" )) {
+    },
+
+    search: function(){
+        
+        //removes any previous results from display
+        document.getElementById("results").innerHTML = "";
+
+        //takes value of input box
+        inputText = $("input").val();
+
+        //calls wiki API with value from above
+        controller.getWikiInfo(inputText);
+
+        //erases input value
+        $("input").val("");
     },
 
     renderSearchResults: function(){
@@ -115,7 +131,7 @@ view = {
                 var link =data[i].link;
                 
                 if(i===0 && title===undefined){
-                    $("#results").append("<h2>No results found</h2><p>Try again, or <a href='https://en.wikipedia.org/wiki/Special:Random' target='_blank'>click here for a random article</a>.</p>").hide().fadeIn(200);
+                    $("#results").append("<h2>No results found</h2><p>Try again or <a class='link' href='https://en.wikipedia.org/wiki/Special:Random' target='_blank'>click here for a random article</a>.</p>").hide().fadeIn(200);
                 }
                 else if (title!==undefined){
                     $("#results").append('<a href="' + link +'" target="_blank"><div class="resultDiv col-xs-12"> <h2>'+title+"</h2>" + "<p>" +info +"</p>" + '</p></div></a>').hide().fadeIn(200);
