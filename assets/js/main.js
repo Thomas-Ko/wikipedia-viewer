@@ -110,10 +110,17 @@ view = {
                 var title=data[i].title;
                 var info = data[i].info;
                 var link =data[i].link;
+                
+                if(i===0 && title===undefined){
+                    $("#results").append("<h2>No results found</h2><p>Try again, or do a random search.</p>");
+                }
+                else if (title!==undefined){
+                    $("#results").append('<a href="' + link +'" target="_blank"><div class="resultDiv col-xs-12"> <h2>'+title+"</h2>" + "<p>" +info +"</p>" + '</p></div></a>');
+                } 
 
-                // console.log(link);
 
-                $("#results").append('<a href="' + link +'" target="_blank"><div class="resultDiv col-xs-12"> <h2>'+title+"</h2>" + "<p>" +info +"</p>" + '</p></div></a>');
+
+                
             }
         });
     }
