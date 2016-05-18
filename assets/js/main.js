@@ -84,12 +84,13 @@ controller = {
 view = {
 
     init : function(){
-        view.buttonClick();
+        view.searchButtonClick();
         view.renderSearchResults();
+        view.randomButtonClick();
     },
 
-    buttonClick: function(){
-        $("button").on("click",function(){
+    searchButtonClick: function(){
+        $("#searchButton").on("click",function(){
             //removes any previous results from display
             
 
@@ -114,15 +115,11 @@ view = {
                 var link =data[i].link;
                 
                 if(i===0 && title===undefined){
-                    $("#results").append("<h2>No results found</h2><p>Try again, or do a random search.</p>").hide().fadeIn(200);
+                    $("#results").append("<h2>No results found</h2><p>Try again, or <a href='https://en.wikipedia.org/wiki/Special:Random' target='_blank'>click here for a random article</a>.</p>").hide().fadeIn(200);
                 }
                 else if (title!==undefined){
                     $("#results").append('<a href="' + link +'" target="_blank"><div class="resultDiv col-xs-12"> <h2>'+title+"</h2>" + "<p>" +info +"</p>" + '</p></div></a>').hide().fadeIn(200);
-                } 
-
-
-
-                
+                }         
             }
         });
     }
