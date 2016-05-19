@@ -1,6 +1,7 @@
 /*=========================
     MODEL
 =========================*/
+
 var model = {
     //this will be replaced with the search term from the input box
     searchTerm : null,
@@ -15,7 +16,8 @@ var model = {
         this.link = link;
     }
     
-};
+};  //end model
+
 
 /*=========================
     CONTROLLER
@@ -31,11 +33,6 @@ controller = {
          
             // The URL for the request
             url: "https://en.wikipedia.org/w/api.php?action=opensearch&format=json&search=" + searchStr,
-         
-            // The data to send (will be converted to a query string)
-            data: {
-                id: 123
-            },
          
             // Whether this is a POST or GET request
             type: "GET",
@@ -61,9 +58,7 @@ controller = {
 
             var newObj = new model.ResultObject(arr[0],arr[1],arr[2]);
             model.results.push(newObj);
-
             model.searchTerm=data[0];
-
         }
     },
 
@@ -73,8 +68,7 @@ controller = {
     getSearchTerm: function(){
         return model.searchTerm;
     }
-};
-
+}; //end controller
        
 
 /*=========================
@@ -101,7 +95,6 @@ view = {
             }
         });
 
-        // if ($(this).is( ":focus" )) {
     },
 
     search: function(){
@@ -125,17 +118,22 @@ view = {
             var searchTerm = controller.getSearchTerm();
             console.log(data);
 
-            if(data[0] && data[0].title===undefined){
-                    $("#results").append("<h2>No results found</h2><p>Try again or <a class='link' href='https://en.wikipedia.org/wiki/Special:Random' target='_blank'>click here for a random article</a>.</p>").hide().fadeIn(200);
+            //if first result is undefined (meaning everything else is also undefined)
+            if(data[0].title===undefined){
+                //tell user that no results found for their search term
+                $("#results").append("<h2>No results found</h2><p>Try again or <a class='link' href='https://en.wikipedia.org/wiki/Special:Random' target='_blank'>click here for a random article</a>.</p>").hide().fadeIn(200);
             } else {
+                //
                 $('#results').append('<h2>Search Results for:<span class="search-term"> ' + searchTerm + '</span></h2>');
             }
 
+            //loops through an array of results
             for (i=0; i<data.length; i++){
                 var title=data[i].title;
                 var info = data[i].info;
                 var link =data[i].link;
                 
+                //display result if there is information for result
                 if (title!==undefined){
                     $("#results").append('<a href="' + link +'" target="_blank"><div class="resultDiv col-xs-12"> <h3>'+title+"</h3>" + "<p>" +info +"</p>" + '</p></div></a>').hide().fadeIn(200);
                 }         
@@ -143,14 +141,10 @@ view = {
         });
     }
 
-};
+}; //end view
 
 
 /*=========================
     INITIALIZE
 =========================*/
 controller.init();
-
-
-//to do
-//if undefined, don't append the div; for example, searching "boston celtics" returns 9 good results, 1 undefined result
