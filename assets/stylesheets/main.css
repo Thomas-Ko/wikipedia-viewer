@@ -50,6 +50,7 @@ main {
 	border-top:1px solid #fff;
 	color:#333;
 	padding-top:20px;
+	min-height:300px;
 }
 
 h2 {
@@ -107,6 +108,15 @@ a, a:hover, a:active, a:visited, a:focus {
 
 
 /*=========================
+	FOOTER
+=========================*/
+footer p {
+	color: #8c8c8c;
+	text-align: center;
+}
+
+
+/*=========================
 	MEDIA QUERIES
 =========================*/
 
@@ -139,5 +149,17 @@ a, a:hover, a:active, a:visited, a:focus {
 		display:block;
 		font-size:25px;
 		margin-top:8px;
+	}
+}
+
+@media screen and (min-height: 920px) {
+	main {
+		min-height:680px;
+	}
+}
+
+@media screen and (max-height: 600px) {
+	main {
+		min-height:225px;
 	}
 }
